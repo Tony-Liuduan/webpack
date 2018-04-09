@@ -7,7 +7,7 @@ import {
     Redirect,
     hashHistory
 } from 'react-router'
-import App from './app.js'
+import App from './containers/app'
 import IndexComponent from './containers/index'
 import { asyncComponent } from '../../components_common/asyncComponent'
 import '../../style/index.scss'
@@ -25,8 +25,8 @@ ReactDOM.render(
                 require.ensure([], function (require) {
                     callback(null, require('./containers/list').default)
                 }, 'list')
-            }} /> */}
-            {/* <Route path="detail/:id" getComponent={(location, callback) => {
+            }} />
+            <Route path="detail/:id" getComponent={(location, callback) => {
                 require.ensure([], function (require) {
                     callback(null, require('./containers/detail').default)
                 }, 'detail')

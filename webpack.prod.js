@@ -13,8 +13,8 @@ const pkg = require('./package.json')
 module.exports = merge(common, {
     //devtool: 'source-map',
     entry: {
-        vendor: Object.keys(pkg.dependencies)
-        //vendor: ['react', 'react-dom', 'react-router'] // 分离第三方应用
+        //vendor: Object.keys(pkg.dependencies)
+        vendor: ['react', 'react-dom', 'react-router'] // 分离第三方应用
     },
     output: {
         filename: 'js/[name].[chunkhash:8].js',
@@ -74,9 +74,7 @@ module.exports = merge(common, {
         new CleanWebpackPlugin(['dist']),
         // new BundleAnalyzerPlugin(),
         new ManifestPlugin(),
-        // new UglifyJSPlugin({
-        //     sourceMap: true
-        // }),
+        // new UglifyJSPlugin(),
         new webpack.HashedModuleIdsPlugin(),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production')
@@ -89,6 +87,7 @@ module.exports = merge(common, {
         * 所以页面上使用的时候最后一个块必须最先加载
         */
         new webpack.optimize.CommonsChunkPlugin({
+            //name: 'vendor',
             name: ['vendor', 'runtime'],
             // minChunks: Infinity // 随着 入口chunk 越来越多，这个配置保证没其它的模块会打包进 公共chunk
             minChunks: function (module, count) {

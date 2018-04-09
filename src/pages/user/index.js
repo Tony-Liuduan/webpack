@@ -1,9 +1,11 @@
-import _ from 'lodash';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './containers/app'
 import '../../style/index.scss'
-import './index.scss';
 
-console.log(
-    _.join(['Another', 'module', 'loaded!'], ' ')
-);
 
-export let a = 2;
+const rootElement = document.getElementById('root');
+ReactDOM.render(
+    <App />,
+    rootElement
+)

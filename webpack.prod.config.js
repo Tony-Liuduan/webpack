@@ -3,18 +3,20 @@ const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const merge = require('webpack-merge');
-const common = require('./webpack.common.js');
+const common = require('./webpack.common.config.js');
 const pkg = require('./package.json')
 
 
 module.exports = merge(common, {
     //devtool: 'source-map',
     entry: {
-        //vendor: Object.keys(pkg.dependencies)
-        vendor: ['react', 'react-dom', 'react-router'] // 分离第三方应用
+        //libs: Object.keys(pkg.dependencies)
+        libs: ['react', 'react-dom', 'react-router', 'whatwg-fetch'], // 分离第三方应用
+        vendor: ['./src/components_common/asyncComponent']
     },
     output: {
         filename: 'js/[name].[chunkhash:8].js',
@@ -73,7 +75,7 @@ module.exports = merge(common, {
     plugins: [
         new CleanWebpackPlugin(['dist']),
         // new BundleAnalyzerPlugin(),
-        new ManifestPlugin(),
+        // new ManifestPlugin(),
         // new UglifyJSPlugin(),
         new webpack.HashedModuleIdsPlugin(),
         new webpack.DefinePlugin({
@@ -88,7 +90,7 @@ module.exports = merge(common, {
         */
         new webpack.optimize.CommonsChunkPlugin({
             //name: 'vendor',
-            name: ['vendor', 'runtime'],
+            name: ['vendor', 'libs', 'runtime'],
             // minChunks: Infinity // 随着 入口chunk 越来越多，这个配置保证没其它的模块会打包进 公共chunk
             minChunks: function (module, count) {
                 const resource = module.resource

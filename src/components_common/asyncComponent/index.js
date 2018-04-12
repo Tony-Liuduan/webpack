@@ -1,11 +1,13 @@
 import React from 'react'
+
+
 export const asyncComponent = loadComponent => (
     class AsyncComponent extends React.Component {
 
         constructor(props) {
             super(props);
             this.state = {
-                Component: null,
+                Component: null
             }
         }
         
@@ -13,7 +15,6 @@ export const asyncComponent = loadComponent => (
             if (this.hasLoadedComponent()) {
                 return;
             }
-
             loadComponent()
                 .then(module => {
                     console.log(module)

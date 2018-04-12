@@ -1,12 +1,15 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const common = require('./webpack.common.js');
+const path = require('path');
+const common = require('./webpack.common.config.js');
 
 
 module.exports = merge(common, {
     devtool: 'inline-source-map',
     output: {
-        filename: '[name].js'
+        filename: 'js/[name].[chunkhash:8].js',
+        path: path.resolve(__dirname, 'dist'),
+        chunkFilename: 'js/[name].[chunkhash:8].chunk.js'
     },
     module: {
         rules: [
@@ -57,6 +60,10 @@ module.exports = merge(common, {
         contentBase: './public'
     },
     plugins: [
-        new webpack.NamedModulesPlugin()
+        new webpack.NamedModulesPlugin(),
+        // new webpack.DllReferencePlugin({
+        //     context: __dirname,
+        //     manifest: require('./dist/dll/vendors-manifest.json')
+        // })
     ]
 });

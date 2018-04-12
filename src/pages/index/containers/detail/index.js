@@ -9,7 +9,6 @@ export default class Detail extends React.Component {
         }
     }
     componentDidMount() {
-
     }
 
     render() {

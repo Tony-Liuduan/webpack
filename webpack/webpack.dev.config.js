@@ -7,9 +7,9 @@ const common = require('./webpack.common.config.js');
 module.exports = merge(common, {
     devtool: 'inline-source-map',
     output: {
-        filename: 'js/[name].[chunkhash:8].js',
-        path: path.resolve(__dirname, 'dist'),
-        chunkFilename: 'js/[name].[chunkhash:8].chunk.js'
+        filename: 'static/js/[name].js',
+        path: path.resolve(__dirname, '../dist'),
+        chunkFilename: 'static/js/[name].chunk.js'
     },
     module: {
         rules: [
@@ -37,7 +37,7 @@ module.exports = merge(common, {
                         loader: 'url-loader',
                         options: {
                             limit: 8192,
-                            name: 'img/[name].[ext]'
+                            name: 'static/img/[name].[ext]'
                         }
                     }
                 ]
@@ -49,7 +49,7 @@ module.exports = merge(common, {
                         loader: 'url-loader',
                         options: {
                             limit: 10000,
-                            name: 'img/[name].[ext]'
+                            name: 'static/img/[name].[ext]'
                         }
                     }
                 ]
@@ -57,13 +57,9 @@ module.exports = merge(common, {
         ]
     },
     devServer: {
-        contentBase: './public'
+        contentBase: '../dist'
     },
     plugins: [
-        new webpack.NamedModulesPlugin(),
-        // new webpack.DllReferencePlugin({
-        //     context: __dirname,
-        //     manifest: require('./dist/dll/vendors-manifest.json')
-        // })
+        new webpack.NamedModulesPlugin()
     ]
 });

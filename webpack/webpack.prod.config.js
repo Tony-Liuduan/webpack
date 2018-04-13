@@ -8,20 +8,20 @@ const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const merge = require('webpack-merge');
 const common = require('./webpack.common.config.js');
-const pkg = require('./package.json')
+//const pkg = require('./package.json')
 
 
 module.exports = merge(common, {
     //devtool: 'source-map',
     entry: {
         //libs: Object.keys(pkg.dependencies)
-        libs: ['react', 'react-dom', 'react-router', 'whatwg-fetch'], // 分离第三方应用
-        vendor: ['./src/components_common/asyncComponent']
+        //libs: ['react', 'react-dom', 'react-router', 'whatwg-fetch'], // 分离第三方应用
+        //vendor: ['./src/components_common/asyncComponent']
     },
     output: {
-        filename: 'js/[name].[chunkhash:8].js',
-        path: path.resolve(__dirname, 'dist'),
-        chunkFilename: 'js/[name].[chunkhash:8].chunk.js'
+        filename: 'static/js/[name].[chunkhash:8].js',
+        path: path.resolve(__dirname, '../dist'),
+        chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js'
     },
     module: {
         rules: [
@@ -53,7 +53,7 @@ module.exports = merge(common, {
                         loader: 'url-loader',
                         options: {
                             limit: 8192,
-                            name: 'img/[name].[hash:8].[ext]'
+                            name: 'static/img/[name].[hash:8].[ext]'
                         }
                     }
                 ]
@@ -65,7 +65,7 @@ module.exports = merge(common, {
                         loader: 'url-loader',
                         options: {
                             limit: 10000,
-                            name: 'img/[name].[hash:8].[ext]'
+                            name: 'static/img/[name].[hash:8].[ext]'
                         }
                     }
                 ]
@@ -73,7 +73,16 @@ module.exports = merge(common, {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin(['dist'], {
+            "root": path.resolve(__dirname, '../'),
+            //一个根的绝对路径.
+            "verbose": true,
+            //将log写到 console.
+            "dry": false,
+            //不要删除任何东西，主要用于测试.
+            "exclude": ["dll.js"]
+            //排除不删除的目录，主要用于避免删除公用的文件
+        }),
         // new BundleAnalyzerPlugin(),
         // new ManifestPlugin(),
         // new UglifyJSPlugin(),
@@ -98,6 +107,6 @@ module.exports = merge(common, {
                 return resource && /\.(css|scss)$/.test(resource) && count > 1
             }
         }),
-        new ExtractTextPlugin('css/[name].[contenthash:8].css')
+        new ExtractTextPlugin('static/css/[name].[contenthash:8].css')
     ]
 });

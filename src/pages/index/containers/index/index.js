@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
+import { Cells } from 'lm-cell'
 import MiddleImg from './img/react生命周期.jpg'
 import './index.scss'
 
@@ -14,6 +15,7 @@ const Main = props => (
         <br/>
         <br/>
         <img src={MiddleImg} height="400" width="300" alt=""/>
+        <Cells>Cells</Cells>
     </div>
 )
 

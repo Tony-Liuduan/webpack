@@ -1,7 +1,7 @@
 import 'whatwg-fetch'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import ReactAddonsCssTransitionGroup from 'react-addons-css-transition-group';
+//import ReactAddonsCssTransitionGroup from 'react-addons-css-transition-group';
 import {
     IndexRedirect,
     Route,
@@ -13,7 +13,7 @@ import App from './containers/app'
 import IndexComponent from './containers/index'
 import { asyncComponent } from '../../components_common/asyncComponent'
 import '../../style/index.scss'
-console.log(ReactAddonsCssTransitionGroup)
+//console.log(ReactAddonsCssTransitionGroup)
 
 const rootElement = document.getElementById('root')
 const ListComponent = asyncComponent(() => import(/* webpackChunkName: "list" */ "./containers/list"))
